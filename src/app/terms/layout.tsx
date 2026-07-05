@@ -1,0 +1,11 @@
+import type { Metadata } from 'next';
+import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Terms and Conditions',
+  description: 'Review the terms of service, check-in rules, withdrawal regulations, and anti-cheat policies of My Trust.',
+};
+
+export default function TermsLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

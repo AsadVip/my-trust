@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { 
   LayoutDashboard, Calendar, Wallet, ArrowDownCircle, ArrowUpCircle, 
-  Bell, User, Settings, LogOut, ShieldCheck, Menu, X, ShieldAlert
+  Bell, User, Settings, LogOut, ShieldCheck, Menu, X, ShieldAlert, Users
 } from 'lucide-react';
 
 interface Profile {
@@ -79,6 +79,7 @@ export default function DashboardLayout({
     { name: 'Wallet Ledger', href: '/dashboard/wallet', icon: Wallet },
     { name: 'Deposit Funds', href: '/dashboard/deposit', icon: ArrowDownCircle },
     { name: 'Withdraw Payout', href: '/dashboard/withdraw', icon: ArrowUpCircle },
+    { name: 'Referral Program', href: '/dashboard/referral', icon: Users },
     { name: 'Notifications', href: '/dashboard/notifications', icon: Bell, count: unreadCount },
     { name: 'Profile Management', href: '/dashboard/profile', icon: User },
     { name: 'System Settings', href: '/dashboard/settings', icon: Settings },

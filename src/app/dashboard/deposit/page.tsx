@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { 
   Plus, CheckCircle, AlertCircle, Smartphone, 
-  Upload, Loader, RefreshCw, Layers, Sparkles, Clock, QrCode
+  Upload, Loader, RefreshCw, Layers, Sparkles, Clock, QrCode, Download, X
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -42,6 +42,7 @@ export default function DepositPage() {
   const [success, setSuccess] = useState(false);
   const [history, setHistory] = useState<UserPlanPurchase[]>([]);
   const [historyLoading, setHistoryLoading] = useState(true);
+  const [isQrZoomed, setIsQrZoomed] = useState(false);
 
   const supabase = createClient();
 
@@ -273,27 +274,48 @@ export default function DepositPage() {
           <h3 className="text-base font-bold text-text-primary dark:text-white">QR Checkout & Verification</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 dark:bg-slate-800/40 p-5 rounded-2xl border border-divider-light dark:border-border-dark">
-            <div className="md:col-span-5 flex justify-center">
-              <div className="relative w-48 h-48 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-center">
+            <div className="md:col-span-5 flex flex-col items-center justify-center space-y-3">
+              <div 
+                onClick={() => setIsQrZoomed(true)}
+                className="relative w-52 h-52 bg-white p-3 rounded-2xl border border-slate-200 shadow-md flex items-center justify-center cursor-zoom-in group hover:scale-[1.03] transition-all duration-300 ring-4 ring-primary-500/10 hover:ring-primary-500/20"
+              >
                 <Image 
                   src="/images/qr-code.jpeg" 
                   alt="Payment QR Code" 
-                  width={170} 
-                  height={170}
+                  width={190} 
+                  height={190}
                   className="rounded-lg object-contain"
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 rounded-2xl transition-all duration-300 flex items-center justify-center">
+                  <span className="text-white bg-black/75 px-3 py-1.5 rounded-full text-xxs font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+                    Click to Zoom
+                  </span>
+                </div>
               </div>
+              <a 
+                href="/images/qr-code.jpeg" 
+                download="mytrust-payment-qr.jpeg"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-text-primary dark:text-white rounded-xl transition-all border border-divider-light dark:border-border-dark active:translate-y-0.5"
+              >
+                <Download size={14} /> Download QR Code
+              </a>
             </div>
-            <div className="md:col-span-7 space-y-3">
+            <div className="md:col-span-7 space-y-4">
               <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
                 <QrCode size={14} className="text-primary-500" /> QR Payment Instructions
               </h4>
               <p className="text-xs text-text-secondary dark:text-slate-300 leading-relaxed">
-                Scan the QR code using your EasyPaisa, JazzCash, or generic banking app to make your transaction. 
+                Scan the QR code using your EasyPaisa, JazzCash, or generic banking app to make your transaction. Click on the code to zoom in.
               </p>
               {selectedPlan ? (
-                <div className="text-xs text-text-primary dark:text-white bg-primary-50/50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/20 p-3 rounded-xl leading-relaxed">
-                  Transfer the exact price of <strong className="font-bold text-primary-600 dark:text-primary-400">Rs. {Number(selectedPlan.price).toFixed(2)}</strong> for the <strong className="font-semibold">{selectedPlan.name}</strong>, then enter the TID and receipt proof below.
+                <div className="text-xs text-text-primary dark:text-white bg-primary-50/50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/20 p-4 rounded-xl leading-relaxed space-y-1.5">
+                  <div>
+                    Earning Plan: <strong className="font-semibold">{selectedPlan.name}</strong>
+                  </div>
+                  <div>
+                    Transfer Amount: <strong className="font-extrabold text-primary-600 dark:text-primary-400 text-sm">Rs. {Number(selectedPlan.price).toFixed(2)}</strong>
+                  </div>
                 </div>
               ) : (
                 <p className="text-xs text-text-muted italic">Select a plan from the list above to get price details.</p>
@@ -423,6 +445,48 @@ export default function DepositPage() {
           </div>
         </div>
       </div>
+
+      {/* QR Zoom Modal */}
+      {isQrZoomed && (
+        <div 
+          onClick={() => setIsQrZoomed(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-2xl relative max-w-sm w-full border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center cursor-default space-y-4 animate-scaleUp"
+          >
+            <button 
+              onClick={() => setIsQrZoomed(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-text-secondary dark:text-white cursor-pointer"
+            >
+              <X size={16} />
+            </button>
+            <h3 className="text-sm font-bold text-center text-slate-800 dark:text-white uppercase tracking-wider">
+              Scan Payment QR Code
+            </h3>
+            <div className="relative w-80 h-80 bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-center shadow-inner">
+              <Image 
+                src="/images/qr-code.jpeg" 
+                alt="Payment QR Code" 
+                width={290} 
+                height={290}
+                className="rounded-lg object-contain"
+              />
+            </div>
+            <p className="text-center text-xxs text-text-muted">
+              Scan from your mobile device to complete transaction
+            </p>
+            <a 
+              href="/images/qr-code.jpeg" 
+              download="mytrust-payment-qr.jpeg"
+              className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-xs font-bold text-white rounded-xl transition-all active:translate-y-0.5"
+            >
+              <Download size={14} /> Save QR to Device
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -22,6 +22,24 @@ export default function RegisterPage() {
 
   const router = useRouter();
   const supabase = createClient();
+  
+  const [referrerId, setReferrerId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+      if (ref) {
+        setReferrerId(ref);
+        localStorage.setItem('referred_by', ref);
+      } else {
+        const savedRef = localStorage.getItem('referred_by');
+        if (savedRef) {
+          setReferrerId(savedRef);
+        }
+      }
+    }
+  }, []);
 
   // Password strength calculation
   const getPasswordStrength = (pass: string) => {
@@ -66,6 +84,7 @@ export default function RegisterPage() {
         options: {
           data: {
             full_name: fullName.trim(),
+            referred_by: referrerId || undefined,
           },
         },
       });
@@ -140,8 +159,16 @@ export default function RegisterPage() {
                   </div>
                 )}
 
-                {/* Form */}
-                <form onSubmit={handleRegister} className="space-y-4">
+                 {/* Referral Banner */}
+                 {referrerId && (
+                   <div className="p-3 bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/20 rounded-xl text-xs text-primary-700 dark:text-primary-400 flex items-center gap-2 animate-fadeIn mb-2">
+                     <User size={14} className="shrink-0 text-primary-600 dark:text-primary-400" />
+                     <span>You are signing up using a referral link!</span>
+                   </div>
+                 )}
+
+                 {/* Form */}
+                 <form onSubmit={handleRegister} className="space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-text-secondary dark:text-slate-300">
                       Full Name

@@ -32,9 +32,10 @@ export default function LandingPage() {
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'My Trust',
+    name: 'My Trust Earn',
+    alternateName: 'My Trust',
     url: 'https://mytrustearn.online',
-    description: 'Earn daily rewards by checking in, building streaks, and managing payouts via JazzCash & EasyPaisa.',
+    description: 'Earn daily rewards by checking in, building streaks, and managing payouts via JazzCash & EasyPaisa on My Trust Earn.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://mytrustearn.online/faq?q={search_term_string}',
@@ -45,7 +46,8 @@ export default function LandingPage() {
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'My Trust',
+    name: 'My Trust Earn',
+    alternateName: 'My Trust',
     url: 'https://mytrustearn.online',
     logo: 'https://mytrustearn.online/images/og-image.png',
     contactPoint: {
@@ -90,13 +92,13 @@ export default function LandingPage() {
                   className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-text-primary dark:text-white leading-[1.1]"
                 >
                   Build Consistent Habits. <br />
-                  <span className="text-primary-600 dark:text-primary-400">Earn Daily Rewards.</span>
+                  <span className="text-primary-600 dark:text-primary-400">Earn Daily with My Trust Earn.</span>
                 </motion.h1>
                 <motion.p
                   variants={itemVariants}
                   className="text-lg text-text-secondary dark:text-slate-300 max-w-2xl"
                 >
-                  Welcome to My Trust. Simply check in once every 24 hours to claim your reward, build consecutive day streaks for bonus multipliers, and securely manage your earnings in our transparent wallet ledger.
+                  Welcome to My Trust Earn, the premier online rewards platform. Simply check in once every 24 hours to claim your daily check-in rewards, build consecutive day streaks for bonus multipliers, and securely manage your earnings in our transparent wallet ledger.
                 </motion.p>
                 <motion.div
                   variants={itemVariants}

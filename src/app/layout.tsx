@@ -10,11 +10,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mytrustearn.online"),
   title: {
-    default: "My Trust - Daily Rewards & Online Earning Platform",
-    template: "%s | My Trust",
+    default: "My Trust Earn - Daily Rewards & Online Earning Platform",
+    template: "%s | My Trust Earn",
   },
-  description: "Earn consistent daily rewards, build streaks for multipliers, and manage earnings with a secure, transparent wallet. Easy JazzCash & EasyPaisa cash-outs.",
+  description: "My Trust Earn is the premier online earning platform for daily rewards. Build streak multipliers, manage your secure wallet, and enjoy easy local payouts via JazzCash & EasyPaisa.",
   keywords: [
+    "My Trust Earn",
+    "my trust earn",
+    "mytrustearn",
     "My Trust",
     "My Trust Earning",
     "Daily check-in reward",
@@ -27,29 +30,29 @@ export const metadata: Metadata = {
     "Passive rewards checkin",
     "Daily reward streaks"
   ],
-  authors: [{ name: "My Trust Support", url: "https://mytrustearn.online" }],
-  creator: "My Trust Team",
-  publisher: "My Trust",
+  authors: [{ name: "My Trust Earn Support", url: "https://mytrustearn.online" }],
+  creator: "My Trust Earn Team",
+  publisher: "My Trust Earn",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://mytrustearn.online",
-    siteName: "My Trust",
-    title: "My Trust - Daily Rewards & Online Earning Platform",
-    description: "Earn consistent daily rewards, build check-in streaks, and cash out using JazzCash or EasyPaisa.",
+    siteName: "My Trust Earn",
+    title: "My Trust Earn - Daily Rewards & Online Earning Platform",
+    description: "Earn consistent daily rewards with My Trust Earn. Build check-in streaks and cash out easily using JazzCash or EasyPaisa.",
     images: [
       {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "My Trust Daily Rewards & Earning Platform",
+        alt: "My Trust Earn Daily Rewards & Earning Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Trust - Daily Rewards & Online Earning Platform",
-    description: "Earn consistent daily rewards, build check-in streaks, and cash out using JazzCash or EasyPaisa.",
+    title: "My Trust Earn - Daily Rewards & Online Earning Platform",
+    description: "Earn consistent daily rewards with My Trust Earn. Build check-in streaks and cash out easily using JazzCash or EasyPaisa.",
     images: ["/images/og-image.png"],
   },
 };
